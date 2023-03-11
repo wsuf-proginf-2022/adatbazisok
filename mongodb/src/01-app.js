@@ -9,13 +9,16 @@ async function run() {
     await client.connect();
 
     // verfify we are connected
-    await client.db('admin').command({ ping: 1 });
-    console.log('Connected correctly to server');
+    // await client.db('admin').command({ ping: 1 });
+    // console.log('Connected correctly to server');
 
     await client
       .db('carfleet')
       .collection('cars')
       .insertOne({ make: 'Honda', model: 'Civic', year: 2019 });
+
+    const myDoc = await client.db('carfleet').collection('cars').findOne();
+    console.log(myDoc);
   } catch (err) {
     console.log(err);
   } finally {
